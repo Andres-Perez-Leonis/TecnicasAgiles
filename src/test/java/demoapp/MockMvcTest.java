@@ -37,4 +37,20 @@ public class MockMvcTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Hola Juan")));
     }
+
+    @Test
+    public void postShouldCheckIfWordIsPalindrome() throws Exception {
+        this.mockMvc.perform(post("/palindrome")
+                        .param("palabra", "reconocer"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Es un palindromo")));
+    }
+
+    @Test
+    public void postShouldCheckIfWordIsNotPalindrome() throws Exception {
+        this.mockMvc.perform(post("/palindrome")
+                        .param("palabra", "mundo"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("No Es un palindromo")));
+    }
 }

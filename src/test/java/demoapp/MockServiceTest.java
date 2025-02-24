@@ -1,5 +1,6 @@
 package demoapp;
 
+import demoapp.service.PalindromoService;
 import demoapp.service.SaludoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,5 +36,22 @@ public class MockServiceTest {
         this.mockMvc.perform(get("/saludo/Juan"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Hola Mock Juan")));
+    }
+
+    @MockBean
+    private PalindromoService servicePalindromo;
+
+    @Test
+    public void shouldReturnMockPalindromeResponse() throws Exception {
+        when(servicePalindromo.isPalindrome("reconocer")).thenReturn(true);
+        when(servicePalindromo.isPalindrome("hola")).thenReturn(false);
+
+        this.mockMvc.perform(post("/palindrome").param("palabra", "reconocer"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Es un palindromo")));
+
+        this.mockMvc.perform(post("/palindrome").param("palabra", "hola"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("No Es un palindromo")));
     }
 }

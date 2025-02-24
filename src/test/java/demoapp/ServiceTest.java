@@ -1,5 +1,6 @@
 package demoapp;
 
+import demoapp.service.PalindromoService;
 import demoapp.service.SaludoService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,24 @@ public class ServiceTest {
     @Test
     public void serviceSaludo() throws Exception {
         assertThat(saludo.saluda("Juan")).isEqualTo("Hola Juan");
+    }
+
+    @Autowired
+    PalindromoService palindromoService;
+
+    @Test
+    public void contextLoads() throws Exception {
+        assertThat(palindromoService).isNotNull();
+    }
+
+    @Test
+    public void shouldDetectPalindrome() {
+        assertThat(palindromoService.isPalindrome("reconocer")).isTrue();
+        assertThat(palindromoService.isPalindrome("Anita lava la tina")).isTrue();
+    }
+
+    @Test
+    public void shouldDetectNonPalindrome() {
+        assertThat(palindromoService.isPalindrome("mundo")).isFalse();
     }
 }
