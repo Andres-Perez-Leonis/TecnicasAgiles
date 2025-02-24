@@ -1,15 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <body>
-<form th:action="@{/palindromoForm}" th:object="${userData}" method="post">
+<form th:action="@{/saludoform}" th:object="${userData}" method="post">
     <table>
         <tr>
-            <td>Palabra a comprobar si es un palindromo:</td>
-            <td><input type="text" th:field="*{palabra}" /></td>
-            <td th:if="${#fields.hasErrors('palabra')}" th:errors="*{palabra}"></td>
+            <td>Nombre:</td>
+            <td><input type="text" th:field="*{nombre}" /></td>
+            <td th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></td>
         </tr>
         <tr>
-            <td><button type="submit">Comprobar</button></td>
+            <td><button type="submit">Enviar</button></td>
         </tr>
     </table>
 </form>
