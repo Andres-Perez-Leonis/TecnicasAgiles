@@ -1,5 +1,6 @@
 package demoapp;
 
+import demoapp.service.AnagramaService;
 import demoapp.service.PalindromoService;
 import demoapp.service.SaludoService;
 import org.junit.jupiter.api.Test;
@@ -13,9 +14,19 @@ public class ServiceTest {
     @Autowired
     SaludoService saludo;
 
+
+    @Autowired
+    PalindromoService palindromoService;
+
+
+    @Autowired
+    AnagramaService anagramaService;
+
     @Test
     public void contexLoads() throws Exception {
         assertThat(saludo).isNotNull();
+        assertThat(palindromoService).isNotNull();
+        assertThat(anagramaService).isNotNull();
     }
 
     @Test
@@ -23,13 +34,6 @@ public class ServiceTest {
         assertThat(saludo.saluda("Juan")).isEqualTo("Hola Juan");
     }
 
-    @Autowired
-    PalindromoService palindromoService;
-
-    @Test
-    public void contextLoads() throws Exception {
-        assertThat(palindromoService).isNotNull();
-    }
 
     @Test
     public void shouldDetectPalindrome() {
@@ -41,4 +45,16 @@ public class ServiceTest {
     public void shouldDetectNonPalindrome() {
         assertThat(palindromoService.isPalindrome("mundo")).isFalse();
     }
+
+    @Test
+    public void shouldDetectAnagrama() {
+        assertThat(anagramaService.isAnagrama("amor", "roma")).isTrue();
+        assertThat(anagramaService.isAnagrama("Listen", "Silent")).isTrue();
+    }
+
+    @Test
+    public void shouldDetectNonAnagrama() {
+        assertThat(anagramaService.isAnagrama("perro", "gato")).isFalse();
+    }
+
 }

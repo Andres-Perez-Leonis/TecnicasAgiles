@@ -1,5 +1,6 @@
 package demoapp;
 
+import demoapp.service.AnagramaService;
 import demoapp.service.PalindromoService;
 import demoapp.service.SaludoService;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,8 @@ public class MockServiceTest {
     // Podemos también mockear el servicio
     @MockBean
     private SaludoService service;
+    @Autowired
+    private AnagramaService anagramaService;
 
     @Test
     public void greetingShouldReturnMessageFromService() throws Exception {
@@ -54,4 +57,23 @@ public class MockServiceTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("No Es un palindromo")));
     }
+
+
+    @MockBean
+    private AnagramaService serviceAnagrama;
+
+    @Test
+    public void shouldReturnMockAnagramaResponse() throws Exception {
+        when(anagramaService.isAnagrama("amor", "roma")).thenReturn(true);
+        when(anagramaService.isAnagrama("pato", "gato")).thenReturn(false);
+
+        this.mockMvc.perform(post("/anagrama").param("palabra1", "lalo", "palabra2", "lola"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Es un anagrama")));
+
+        this.mockMvc.perform(post("/anagrama").param("palabra1", "pato", "palabra2", "gato"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("No Es un anagrama")));
+    }
+
 }

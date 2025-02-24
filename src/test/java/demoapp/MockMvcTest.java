@@ -53,4 +53,21 @@ public class MockMvcTest {
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("No Es un palindromo")));
     }
+
+    @Test
+    public void postShouldCheck2WordsIsAnagrama() throws Exception {
+        this.mockMvc.perform(post("/anagrama")
+                .param("palabra1", "lalo")
+                .param( "palabra2", "lola"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Es un anagrama")));
+    }
+    @Test
+    public void postShouldCheck2WordsIsNotAnagrama() throws Exception {
+        this.mockMvc.perform(post("/anagrama")
+                .param("palabra1", "pato")
+                .param( "palabra2", "gato"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("No Es un anagrama")));
+    }
 }
