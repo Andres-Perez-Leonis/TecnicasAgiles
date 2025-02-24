@@ -14,7 +14,7 @@ public class PalindromeController {
     @Autowired
     private PalindromoService service;
 
-    @RequestMapping("/saludo/{nombre}")
+    @RequestMapping("/palindrome/{palabra}")
     public @ResponseBody boolean saludo(@PathVariable(value="palabra") String palabra) {
         return service.isPalindrome(palabra);
     }

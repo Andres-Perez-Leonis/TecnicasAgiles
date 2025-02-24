@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <body>
-<form th:action="@{/palindromeForm}" th:object="${palindromeData}" method="post">
+<form th:action="@{/palindrome}" th:object="${palindromeData}" method="post">
     <table>
         <tr>
             <td>Palabra a comprobar si es un palindromo:</td>

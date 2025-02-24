@@ -5,7 +5,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class PalindromoService {
     public boolean isPalindrome(String palabra) {
-        String invertida = new StringBuilder(palabra).reverse().toString();
-        return palabra.equalsIgnoreCase(invertida);
+        if(palabra == null || palabra.isEmpty()) return false;
+        String limpia = palabra.replaceAll("\\s+", "").toLowerCase();
+        String invertida = new StringBuilder(limpia).reverse().toString();
+        return limpia.equals(invertida);
     }
 }
